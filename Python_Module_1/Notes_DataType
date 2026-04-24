@@ -1,0 +1,389 @@
+. What is a Data Type
+
+A data type defines:
+
+The kind of value a variable holds
+How that value is stored in memory
+What operations can be performed on it
+
+Example:
+
+x = 10
+
+Here, 10 is an integer data type.
+
+2. Python is Dynamically Typed
+
+In Python, you do not declare the data type explicitly.
+
+x = 10
+x = "hello"
+
+The same variable can hold different types of values.
+
+Internal behavior:
+
+Python creates an object in memory
+The variable name points to that object
+When reassigned, the variable points to a new object
+3. Everything in Python is an Object
+
+Every value in Python is an object.
+
+x = 10
+print(type(x))   # <class 'int'>
+
+Internally:
+
+x = int(10)
+
+Each object has:
+
+Type
+Value
+Memory location
+Methods associated with it
+4. Memory Model in Python
+
+Python uses two main memory areas:
+
+Heap Memory:
+
+Stores actual objects such as numbers, strings, lists
+
+Stack:
+
+Stores variable names and references to objects
+
+Example:
+
+a = 10
+b = a
+
+Both variables refer to the same object in memory.
+
+5. Mutable vs Immutable Data Types
+
+Immutable means the object cannot be changed after creation.
+Mutable means the object can be modified.
+
+Immutable types:
+
+int
+float
+str
+tuple
+frozenset
+
+Mutable types:
+
+list
+dict
+set
+bytearray
+
+Example:
+
+x = 10
+x = x + 1   # creates new object
+
+lst = [1, 2]
+lst.append(3)   # modifies same object
+6. Categories of Python Data Types
+
+Python data types are grouped into the following categories:
+
+Numeric Types
+Sequence Types
+Set Types
+Mapping Type
+Boolean Type
+Binary Types
+None Type
+7. Numeric Data Types
+7.1 Integer
+x = 10
+
+Key features:
+
+Represents whole numbers
+Supports arbitrary precision
+
+Internal working:
+
+Python does not use fixed-size integers
+Numbers are stored as a sequence of smaller chunks (digits)
+Memory grows as needed
+
+Example:
+
+x = 10**100
+
+No overflow occurs.
+
+Integer caching:
+Python caches small integers between -5 and 256
+
+a = 100
+b = 100
+print(a is b)   # True
+7.2 Float
+x = 10.5
+
+Key features:
+
+Represents decimal numbers
+Stored using IEEE 754 double precision
+
+Precision issue:
+
+print(0.1 + 0.2)
+
+Output is not exactly 0.3 due to binary representation limitations.
+
+7.3 Complex
+x = 2 + 3j
+
+Structure:
+
+Real part
+Imaginary part
+
+Access:
+
+x.real
+x.imag
+8. Sequence Data Types
+8.1 String
+s = "hello"
+
+Features:
+
+Sequence of Unicode characters
+Immutable
+
+Internal:
+
+Stored as an array of characters
+Any modification creates a new object
+8.2 List
+lst = [1, 2, 3]
+
+Features:
+
+Ordered
+Mutable
+Allows duplicate values
+
+Internal:
+
+Dynamic array
+Stores references to objects, not actual values
+8.3 Tuple
+t = (1, 2, 3)
+
+Features:
+
+Ordered
+Immutable
+Faster than list
+
+Internal:
+
+Similar to list but fixed size
+Stored more efficiently
+8.4 Range
+r = range(1, 10)
+
+Features:
+
+Represents a sequence of numbers
+Does not store all values
+
+Internal:
+
+Stores start, stop, step
+Values generated when needed
+9. Set Data Types
+9.1 Set
+s = {1, 2, 3}
+
+Features:
+
+Unordered
+Unique elements only
+
+Internal:
+
+Implemented using hash table
+Fast lookup
+
+Example:
+
+s = {1, 1, 2}
+
+Result is {1, 2}
+
+9.2 Frozenset
+fs = frozenset([1, 2, 3])
+
+Features:
+
+Immutable version of set
+Can be used as dictionary key
+10. Mapping Data Type
+Dictionary
+d = {"name": "Anuj", "age": 30}
+
+Features:
+
+Key value pairs
+Keys must be unique
+
+Internal:
+
+Hash table based
+Key is hashed to find value
+
+Key rules:
+
+Keys must be immutable and hashable
+
+Invalid example:
+
+d = {[1, 2]: "value"}
+
+Valid example:
+
+d = {(1, 2): "value"}
+11. Boolean Data Type
+x = True
+y = False
+
+Internal:
+
+Boolean is a subclass of integer
+True behaves like 1
+False behaves like 0
+
+Truthy and falsy values:
+
+0, empty string, empty list are False
+Non-zero, non-empty are True
+12. Binary Data Types
+Bytes
+b = b"hello"
+
+Features:
+
+Immutable
+Used for binary data
+Bytearray
+ba = bytearray(b"hello")
+
+Features:
+
+Mutable version of bytes
+Memoryview
+mv = memoryview(b"hello")
+
+Features:
+
+Provides direct memory access
+No copying of data
+Improves performance
+13. None Type
+x = None
+
+Features:
+
+Represents absence of value
+Only one instance exists
+
+Correct check:
+
+x is None
+14. Type Checking
+type(x)
+isinstance(x, int)
+
+Difference:
+
+type checks exact type
+isinstance supports inheritance
+15. Type Conversion
+int("10")
+float(5)
+str(100)
+
+Internal:
+
+Calls constructor of target type
+16. Identity vs Equality
+a = 10
+b = 10
+
+Equality:
+
+a == b   # True
+
+Identity:
+
+a is b   # True (same memory)
+
+For lists:
+
+a = [1]
+b = [1]
+
+a == b   # True
+a is b   # False
+17. Memory Optimization
+Small integers are cached
+Strings may be interned
+Reuses memory for efficiency
+18. Advanced Concepts
+Interning
+
+Python reuses objects for performance
+
+Garbage Collection
+Removes unused objects
+Uses reference counting
+Shallow vs Deep Copy
+import copy
+copy.copy()
+copy.deepcopy()
+Hashing
+Used in set and dictionary
+Only immutable objects are hashable
+Mutable Default Argument Issue
+def func(lst=[]):
+    lst.append(1)
+    return lst
+
+This shares the same list across calls
+
+19. Performance Considerations
+
+List vs Tuple:
+
+Tuple is faster and uses less memory
+List is flexible but slower
+
+Set vs List:
+
+Set lookup is faster
+List maintains order
+
+Dictionary:
+
+Constant time lookup
+
+Python data types are:
+
+Dynamic
+Object oriented
+Memory managed
+Internally optimized using caching and hashing
+
